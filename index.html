@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026/27 五大联赛 · 欧洲足球巅峰</title>
+<meta name="description" content="英超、西甲、德甲、意甲、法甲五大联赛官方网站，赛事资讯、豪门球队、赛程赛果、精彩视频一网打尽">
+<meta name="keywords" content="五大联赛, 英超, 西甲, 德甲, 意甲, 法甲, 足球, 赛程, 豪门">
+<style>
+:root {
+  --green: #0b7a3e;
+  --green-dark: #064e2a;
+  --green-light: #16a34a;
+  --gold: #c9a227;
+  --gold-light: #f0d878;
+  --bg: #f0f4f0;
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --white: #fff;
+  --radius: 14px;
+  --shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+/* PC导航 */
+.pc-nav { background: linear-gradient(90deg, var(--green-dark), var(--green)); padding: 0 40px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+.pc-nav-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 70px; }
+.pc-logo { display: flex; align-items: center; gap: 12px; color: var(--white); }
+.pc-logo .ball { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(255,255,255,0.3); }
+.pc-logo .ball img { width: 100%; height: 100%; object-fit: cover; }
+.pc-logo h1 { font-size: 22px; letter-spacing: 1px; }
+.pc-logo span { font-size: 12px; opacity: 0.8; }
+.pc-menu { display: flex; gap: 35px; }
+.pc-menu a { color: var(--white); font-size: 15px; font-weight: 500; position: relative; padding: 5px 0; }
+.pc-menu a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s; }
+.pc-menu a:hover::after { width: 100%; }
+/* PC英雄区块 */
+.pc-hero { background: url('./img/4.webp') center/cover no-repeat; padding: 100px 40px 80px; position: relative; overflow: hidden; }
+.pc-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(6,78,42,0.82) 0%, rgba(11,122,62,0.75) 50%, rgba(22,163,74,0.68) 100%); z-index: 1; }
+.pc-hero-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 2; }
+.pc-hero-content h2 { font-size: 52px; color: var(--white); line-height: 1.2; margin-bottom: 20px; }
+.pc-hero-content h2 span { color: var(--gold-light); text-shadow: 0 0 20px rgba(201,162,39,0.4); }
+.pc-hero-content p { font-size: 18px; color: rgba(255,255,255,0.85); margin-bottom: 30px; max-width: 500px; }
+.pc-countdown { display: flex; gap: 20px; margin-bottom: 35px; }
+.cd-box { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 18px 24px; text-align: center; min-width: 90px; }
+.cd-num { font-size: 36px; font-weight: 800; color: var(--gold-light); font-family: 'Courier New', monospace; }
+.cd-label { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+.pc-hero-btns { display: flex; gap: 15px; }
+.pc-btn-main { background: linear-gradient(135deg, var(--gold), #e8b923); color: var(--green-dark); padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 16px; box-shadow: 0 4px 20px rgba(201,162,39,0.4); transition: all 0.3s; }
+.pc-btn-main:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(201,162,39,0.5); }
+.pc-btn-sec { background: rgba(255,255,255,0.15); color: var(--white); padding: 14px 32px; border-radius: 8px; font-weight: 600; border: 1px solid rgba(255,255,255,0.25); transition: all 0.3s; }
+.pc-btn-sec:hover { background: rgba(255,255,255,0.25); }
+/* PC公告栏 */
+.pc-marquee { background: var(--white); padding: 15px 40px; border-bottom: 1px solid #e0e0e0; }
+.pc-marquee-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 15px; }
+.marquee-label { background: var(--green); color: var(--white); padding: 5px 14px; border-radius: 4px; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+.marquee-text { flex: 1; overflow: hidden; white-space: nowrap; }
+.marquee-text span { display: inline-block; padding-left: 100%; animation: marqueeScroll 20s linear infinite; font-size: 20px; color: var(--text-muted); font-weight: 700; }
+@keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+/* PC区块通用 */
+.pc-section { padding: 70px 40px; max-width: 1400px; margin: 0 auto; }
+.pc-section-title { font-size: 32px; color: var(--green-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+.pc-section-title::before { content: ''; width: 5px; height: 32px; background: linear-gradient(180deg, var(--gold), var(--green)); border-radius: 3px; }
+.pc-section-sub { color: var(--text); margin-bottom: 40px; font-size: 16px; font-weight: 700; }
+/* PC历史区块 */
+.pc-history { background: var(--white); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow); }
+.history-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.history-card { background: var(--bg); border-radius: 10px; padding: 25px; text-align: center; border: 1px solid #e8e8e8; transition: all 0.3s; overflow: hidden; }
+.history-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+.history-img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
+.history-year { font-size: 14px; color: var(--green); font-weight: 700; margin-bottom: 8px; }
+.history-host { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+.history-name { font-size: 13px; color: var(--text-muted); }
+/* PC豪门球队 */
+.team-section { background: url('./img/2.webp') center/cover no-repeat; position: relative; }
+.team-section::before { content: ''; position: absolute; inset: 0; background: rgba(240,244,240,0.7); z-index: 1; }
+.team-section .pc-section, .team-section .pc-section-title, .team-section .pc-section-sub { position: relative; z-index: 2; }
+.team-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; position: relative; z-index: 2; }
+.team-card { background: var(--white); border-radius: 10px; padding: 22px 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #eee; transition: all 0.3s; }
+.team-card:hover { transform: scale(1.05); border-color: var(--green); }
+.team-flag { font-size: 36px; margin-bottom: 8px; }
+.team-name { font-size: 15px; font-weight: 600; color: var(--text); }
+.team-league { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+/* PC赛程表 */
+.schedule-wrap { background: var(--white); border-radius: var(--radius); padding: 35px; box-shadow: var(--shadow); }
+.schedule-tabs { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+.s-tab { padding: 8px 20px; border-radius: 20px; background: var(--bg); font-size: 14px; font-weight: 500; cursor: pointer; border: none; color: var(--text); transition: all 0.2s; }
+.s-tab:hover { background: #e0e8e0; }
+.s-tab.active { background: var(--green); color: var(--white); }
+.schedule-list { display: flex; flex-direction: column; gap: 12px; }
+.s-item { display: flex; align-items: center; gap: 20px; padding: 18px 20px; background: var(--bg); border-radius: 10px; transition: all 0.2s; }
+.s-item:hover { background: #e8f0e8; }
+.s-time { font-size: 14px; color: var(--green); font-weight: 700; width: 65px; flex-shrink: 0; }
+.s-match { flex: 1; display: flex; align-items: center; justify-content: flex-start; gap: 15px; }
+.s-team { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; }
+.s-flag { font-size: 28px; }
+.s-vs { color: var(--text-muted); font-size: 13px; background: var(--white); padding: 4px 12px; border-radius: 20px; }
+.s-stage { font-size: 13px; color: var(--text-muted); width: 120px; text-align: right; }
+/* PC精彩瞬间 */
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+.gallery-item { border-radius: 12px; overflow: hidden; position: relative; aspect-ratio: 16/10; background: #ddd; }
+.gallery-item .g-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.gallery-item:hover .g-img { transform: scale(1.08); }
+.gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.75)); padding: 50px 15px 15px; color: var(--white); }
+.gallery-overlay h4 { font-size: 15px; margin-bottom: 4px; }
+.gallery-overlay p { font-size: 12px; opacity: 0.85; }
+/* PC射手榜 */
+.rank-table { width: 100%; border-collapse: collapse; }
+.rank-table th, .rank-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #eee; }
+.rank-table th { background: var(--bg); font-size: 13px; color: var(--text-muted); font-weight: 600; }
+.rank-table tr:hover { background: #f8faf8; }
+.rank-num { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+.rank-num.gold { background: linear-gradient(135deg, #ffd700, #ffb800); color: #333; }
+.rank-num.silver { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: #333; }
+.rank-num.bronze { background: linear-gradient(135deg, #cd7f32, #b87333); color: #fff; }
+.rank-num.normal { background: var(--bg); color: var(--text-muted); }
+/* 历史回顾 & 射手榜背景同步 */
+#history { background: url('./img/1.webp') center/cover no-repeat; position: relative; }
+#history::before { content: ''; position: absolute; inset: 0; background: rgba(240,244,240,0.7); z-index: 1; }
+#history > .pc-section { position: relative; z-index: 2; }
+#rank { background: url('./img/2.webp') center/cover no-repeat; position: relative; }
+#rank::before { content: ''; position: absolute; inset: 0; background: rgba(240,244,240,0.7); z-index: 1; }
+#rank > .pc-section { position: relative; z-index: 2; }
+/* 弹窗 */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; }
+.modal-overlay.active { display: flex; }
+.modal-box { background: var(--white); border-radius: var(--radius); padding: 35px 40px; max-width: 420px; width: 90%; box-shadow: var(--shadow); text-align: center; animation: modalIn 0.3s ease; }
+@keyframes modalIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.modal-box h3 { font-size: 22px; color: var(--green-dark); margin-bottom: 8px; }
+.modal-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
+.modal-btns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.modal-btns a { display: block; background: linear-gradient(135deg, var(--green-dark), var(--green)); color: var(--white); padding: 12px 0; border-radius: 8px; font-size: 14px; font-weight: 600; transition: all 0.3s; }
+.modal-btns a:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(11,122,62,0.4); }
+.modal-close { margin-top: 18px; background: none; border: none; color: var(--text-muted); font-size: 13px; cursor: pointer; }
+.modal-close:hover { color: var(--green-dark); }
+/* ===== 公告弹窗 ===== */
+.notice-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 300; justify-content: center; align-items: center; }
+.notice-overlay.active { display: flex; }
+.notice-box { 
+  background: var(--white); 
+  border-radius: var(--radius); 
+  padding: 30px 35px 35px; 
+  max-width: 460px;  /*原400px，增加15% →460px*/
+  width: 90%; 
+  box-shadow: var(--shadow); 
+  text-align: center; 
+  animation: modalIn 0.3s ease; 
+  position: relative;
+  transform: scale(0.75);   /*整体缩小30%，保留原DOM尺寸，视觉缩到70%*/
+  transform-origin: center center;
+}
+.notice-box h3 { font-size: 20px; color: var(--green-dark); margin-bottom: 6px; }
+.notice-box > p { color: var(--text-muted); font-size: 13px; margin-bottom: 22px; }
+.notice-close { position: absolute; top: 14px; right: 18px; font-size: 22px; color: #bbb; cursor: pointer; line-height: 1; }
+.notice-close:hover { color: var(--green-dark); }
+.notice-contact-list { display: flex; flex-direction: column; gap: 10px; }
+.notice-contact-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--bg); border-radius: 10px; text-align: left; transition: all 0.2s; cursor: pointer; }
+.notice-contact-item:hover { background: #e0ece0; transform: translateX(3px); }
+.notice-icon { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--green-dark), var(--green)); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.notice-info { flex: 1; }
+.notice-info .label { font-size: 12px; color: var(--text-muted); }
+.notice-info .value { font-size: 15px; font-weight: 600; color: var(--text); }
+/* ===== 右侧漂浮按钮 ===== */
+.float-btns { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 298; }
+.float-btn { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--green-dark), var(--green)); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 22px; cursor: pointer; box-shadow: 0 6px 20px rgba(11,122,62,0.4); transition: all 0.3s; text-decoration: none; position: relative; }
+.float-btn:hover { transform: scale(1.12); box-shadow: 0 8px 28px rgba(11,122,62,0.6); }
+.float-btn.gold { background: linear-gradient(135deg, var(--gold), #e8b923); color: var(--green-dark); }
+.float-btn.gold:hover { box-shadow: 0 6px 20px rgba(201,162,39,0.5); }
+.float-tooltip { position: absolute; right: 76px; background: var(--text); color: var(--white); padding: 8px 14px; border-radius: 6px; font-size: 14px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+.float-btn:hover .float-tooltip { opacity: 1; }
+@media (max-width: 768px) {
+  .float-btns { right: 10px; gap: 8px; }
+  .float-btn { width: 52px; height: 52px; font-size: 18px; }
+  .float-tooltip { font-size: 12px; padding: 6px 10px; right: 62px; }
+}
+/* ===== 赛程下方联系方式 ===== */
+.contact-section { background: var(--white); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow); max-width: 800px; margin: 0 auto 40px; }
+.contact-section-title { font-size: 24px; color: var(--green-dark); margin-bottom: 8px; text-align: center; }
+.contact-section-sub { color: var(--text-muted); font-size: 14px; text-align: center; margin-bottom: 30px; }
+.contact-grid { display: grid; grid-template-columns: minmax(200px, 320px); justify-content: center; gap: 20px; }
+.contact-card { background: var(--bg); border-radius: 12px; padding: 25px 15px; text-align: center; transition: all 0.3s; cursor: pointer; border: 1px solid transparent; }
+.contact-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--green); }
+.contact-card-icon { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--green-dark), var(--green)); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 15px; }
+.contact-card-label { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+.contact-card-value { font-size: 16px; font-weight: 700; color: var(--text); }
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-section { padding: 25px 20px; }
+  .notice-box { padding: 25px 20px 30px; }
+}
+/* PC页脚 */
+.pc-footer { background: var(--green-dark); color: var(--white); padding: 50px 40px 20px; }
+.pc-footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+.pc-footer h4 { font-size: 16px; margin-bottom: 15px; }
+.pc-footer p, .pc-footer a { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 2; }
+.pc-footer a:hover { color: var(--gold-light); }
+.pc-footer-bottom { max-width: 1400px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 13px; color: rgba(255,255,255,0.5); }
+/* ========== H5移动端适配 ========== */
+@media (max-width: 768px) {
+  .pc-nav { padding: 0 15px; }
+  .pc-nav-inner { height: 56px; }
+  .pc-logo h1 { font-size: 16px; }
+  .pc-menu { display: none; }
+  .pc-hero { padding: 50px 20px 40px; }
+  .pc-hero-inner { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+  .pc-hero-content { display: flex; flex-direction: column; align-items: center; }
+  .pc-hero-content h2 { font-size: 30px; }
+  .pc-hero-content p { font-size: 14px; max-width: 100%; }
+  .pc-countdown { justify-content: center; gap: 10px; }
+  .cd-box { padding: 10px 14px; min-width: 65px; }
+  .cd-num { font-size: 24px; }
+  .pc-hero-btns { flex-direction: column; align-items: center; }
+  .pc-hero-btns a { width: 280px; /*固定宽度，取消max‑width百分比*/ }
+  .pc-section { padding: 40px 20px; }
+  .pc-section-title { font-size: 22px; }
+  .pc-section-title::before { height: 22px; }
+  .pc-section-sub { font-size: 14px; }
+  .history-grid { 
+    /*固定两列，固定单元格尺寸，不再自动拉伸*/
+    display: grid;
+    grid-template-columns: 140px 140px;
+    gap: 12px;
+    justify-content: center;
+  }
+  .history-img { height: 90px; width:140px; }
+  .team-grid { 
+    grid-template-columns: 120px 120px;
+    gap: 10px;
+    justify-content:center;
+  }
+  .team-card { padding: 12px 4px; width:120px; }
+  .team-flag { font-size: 28px; }
+  .team-name { font-size: 12px; }
+  .schedule-wrap { padding: 20px; }
+  .schedule-tabs { gap: 6px; }
+  .s-tab { padding: 5px 12px; font-size: 12px; }
+  .s-item { flex-wrap: nowrap; gap: 6px; padding: 8px 10px; align-items: center; }
+  .s-time { font-size: 10px; flex-shrink: 0; }
+  .s-match { flex: 1; order: 0; gap: 6px; min-width: 0; justify-content: center; }
+  .s-team { flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 10px; min-width: 0; white-space: nowrap; }
+  .s-flag { font-size: 16px; }
+  .s-vs { font-size: 9px; padding: 2px 6px; flex-shrink: 0; }
+  .s-stage { font-size: 8px; flex-shrink: 0; width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gallery-grid { 
+    grid-template-columns: 140px 140px;
+    gap: 10px;
+    justify-content:center;
+  }
+  .gallery-item { aspect-ratio: 16/12; width:140px; }
+  .rank-table th, .rank-table td { padding: 10px 8px; font-size: 13px; }
+  .pc-footer-inner { grid-template-columns: 1fr; gap: 25px; }
+
+  /*弹窗改为固定像素，取消百分比自适应*/
+  .modal-box { 
+    width:320px; 
+    max-width:none;
+    padding: 25px 20px; 
+  }
+  .notice-box{
+    width:320px !important;
+    max-width:none !important;
+  }
+  .modal-btns a { font-size: 13px; padding: 10px 0; }
+
+  .pc-footer { display: none; }
+  .pc-marquee { padding: 10px 15px; }
+  .marquee-text span { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+  <!-- 固定悬浮右上角、加粗、点击跳转百度、最高层级 -->
+<div style="position: fixed;top:8px;right:20px;display:flex;gap:24px;z-index:101;">
+  <a class="fixed-service-btn" href="https://tawk.to/chat/6a85b80027f5991d51f60ad3/1k0d5dh48" target="_blank" style="background: linear-gradient(135deg,#ffd700, #e8b923);color:#105c34;padding: 14px 32px;border-radius:6.4px;font-weight: 700;font-size:19.2px;box-shadow: 0 4px 20px rgba(201,162,39,0.4);transition: all 0.3s;text-decoration:none;display:inline-block;transform:scale(0.6);transform-origin:right top;">
+    <span style="display:inline-block;transform:scale(1.2);">在线客服</span>
+  </a>
+</div>
+
+<!-- PC导航 -->
+<nav class="pc-nav">
+  <div class="pc-nav-inner">
+    <div class="pc-logo">
+      <div class="ball"><img src="./img/t.png" alt="头像"></div>
+      <div>
+        <h1>2026/27 五大联赛</h1> 
+        <span>五大聚集·足球盛宴</span>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<!-- PC英雄区块 -->
+<section class="pc-hero">
+  
+  <div class="pc-hero-inner">
+    <div class="pc-hero-content">
+      <h2 style="text-align:center;margin-top:-15%;"><span style="font-size:55px;">👑</span></h2>
+      <h2>2026/27 <span>五大联赛</span><br>欧洲足球巅峰</h2>
+      <p>英超、西甲、德甲、意甲、法甲，五大顶级联赛全面开战，豪门云集、球星璀璨。</p>
+
+      <p>皇冠官网 公平公正<br>首充赠送10-15% 每周流水福利 诚招代理商</p>
+      <div class="pc-countdown">
+        <div class="cd-box"><div class="cd-num" id="cd-d">--</div><div class="cd-label">天</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-h">--</div><div class="cd-label">时</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-m">--</div><div class="cd-label">分</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-s">--</div><div class="cd-label">秒</div></div>
+      </div>
+
+      <div class="pc-hero-btns">
+        <a class="pc-btn-main" href="javascript:void(0)" onclick="openModal()">📅皇冠会员/代理线路</a>
+        <a class="pc-btn-sec" href="">🏆 联系在线客服</a>
+      </div>
+    </div>
+    <div class="pc-hero-img" style="text-align:center;">
+      <img src="./img/4.webp" alt="五大联赛" style="max-width:420px;width:100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.3));">
+      <div style="color:rgba(255,255,255,0.6);font-size:16px;margin-top:10px;">Premier · La Liga · Bundesliga · Serie A · Ligue 1</div>
+    </div>
+  </div>
+</section>
+
+<!-- 单个联系方式弹窗（漂浮按钮用） -->
+<div class="notice-overlay" id="floatModal">
+  <div class="notice-box">
+    <span class="notice-close" onclick="closeFloatNotice()">&times;</span>
+    <h3 id="floatTitle">联系我们</h3>
+    <p id="floatSub">如有问题请通过以下方式联系</p>
+    <div class="notice-contact-list">
+      <div class="notice-contact-item" id="floatItem" onclick="floatGo()">
+        <div class="notice-icon" id="floatIcon" style="padding:0;background:transparent;"><img id="floatIconImg" src="./img/tg.jpg" style="width:40px;height:40px;border-radius:50%;object-fit:cover;"></div>
+        <div class="notice-info">
+          <div class="label" id="floatLabel">在线客服</div>
+          <div class="value" id="floatValue">点击咨询</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:18px;">
+      <a href="#" id="floatLink" target="_blank" class="pc-btn-main" style="display:inline-block;padding:10px 28px;font-size:14px;">立即跳转</a>
+    </div>
+  </div>
+</div>
+
+<!-- 公告弹窗（每日一次） -->
+<div class="notice-overlay" id="noticeModal">
+  <div class="notice-box">
+    <span class="notice-close" onclick="closeNotice()">&times;</span>
+    <h3>📢 联系我们</h3>
+    <p>如有任何问题，欢迎通过以下方式联系</p>
+   
+    <div class="notice-contact-list">
+      <a href="https://tawk.to/chat/6a85b80027f5991d51f60ad3/1k0d5dh48" target="_blank" style="text-decoration:none;">
+        <div class="notice-contact-item">
+          <div class="notice-icon" style="padding:0;background:transparent;width:64px;height:64px;"><img src="./img/2a33227e485644ec9c723710b4847416.png" style="width:64px;height:64px;border-radius:50%;object-fit:cover;"></div>
+          <div class="notice-info">
+            <div class="label" style="font-size:16px;">在线客服</div>
+            <div class="value" style="font-size:22px;color:var(--green-dark);font-weight:800;">联系网页客服</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="notice-contact-list">
+      <a href="https://t.me/dam8881" target="_blank" style="text-decoration:none;">
+        <div class="notice-contact-item">
+          <div class="notice-icon" style="padding:0;background:transparent;width:64px;height:64px;"><img src="./img/fj.png" style="width:64px;height:64px;border-radius:50%;object-fit:cover;"></div>
+          <div class="notice-info">
+            <div class="label" style="font-size:16px;">飞机/电报</div>
+            <div class="value" style="font-size:22px;color:var(--green-dark);font-weight:800;">+85244315859</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="notice-contact-list">
+      <a href="https://batchat.com/" target="_blank" style="text-decoration:none;">
+        <div class="notice-contact-item">
+          <div class="notice-icon" style="padding:0;background:transparent;width:64px;height:64px;"><img src="./img/bf.png" style="width:64px;height:64px;border-radius:50%;object-fit:cover;"></div>
+          <div class="notice-info">
+            <div class="label" style="font-size:16px;">蝙蝠APP</div>
+            <div class="value" style="font-size:22px;color:var(--green-dark);font-weight:800;">155769215</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="notice-contact-list">
+      <a href="https://3t.cn/" target="_blank" style="text-decoration:none;">
+        <div class="notice-contact-item">
+          <div class="notice-icon" style="padding:0;background:transparent;width:64px;height:64px;"><img src="./img/3t.png" style="width:64px;height:64px;border-radius:50%;object-fit:cover;"></div>
+          <div class="notice-info">
+            <div class="label" style="font-size:16px;">三条APP</div>
+            <div class="value" style="font-size:22px;color:var(--green-dark);font-weight:800;">hga0500</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="notice-contact-list">
+      <a href="https://wa.me/85244315859" target="_blank" style="text-decoration:none;">
+        <div class="notice-contact-item">
+          <div class="notice-icon" style="padding:0;background:transparent;width:64px;height:64px;"><img src="./img/ws.png" style="width:64px;height:64px;border-radius:50%;object-fit:cover;"></div>
+          <div class="notice-info">
+            <div class="label" style="font-size:16px;">Whatsapp</div>
+            <div class="value" style="font-size:22px;color:var(--green-dark);font-weight:800;">+85257816278</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- PC滚动公告 -->
+<div class="pc-marquee">
+  <div class="pc-marquee-inner">
+    <span class="marquee-label">最新快讯</span>
+    <div class="marquee-text"><span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 英超争冠进入白热化 · 🇪🇸 皇马巴萨国家德比一触即发 · 🇩🇪 拜仁勒沃库森榜首大战 · 🇮🇹 米兰双雄争夺欧冠资格 · 🇫🇷 巴黎圣日耳曼卫冕冲刺 · 🏆 五大联赛官方数据实时同步 </span></div>
+  </div>
+</div>
+
+<!-- PC历届冠军 -->
+<section id="history">
+  <div class="pc-section">
+    <h2 class="pc-section-title">近五届联赛冠军</h2>
+    <p class="pc-section-sub">五大联赛传统豪强，王朝的延续与新王的崛起</p>
+    <div class="pc-history">
+      <div class="history-grid">
+        <div class="history-card">
+          <img class="history-img" src="./img/1.webp" alt="英超冠军">
+          <div class="history-year">2025/26 · 英超</div>
+          <div class="history-winner">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+          <div class="history-host">曼城</div>
+          <div class="history-name">蓝色王朝延续</div>
+        </div>
+        <div class="history-card">
+          <img class="history-img" src="./img/3.webp" alt="西甲冠军">
+          <div class="history-year">2025/26 · 西甲</div>
+          <div class="history-winner">🇪🇸</div>
+          <div class="history-host">皇家马德里</div>
+          <div class="history-name">银河战舰再登顶</div>
+        </div>
+        <div class="history-card">
+          <img class="history-img" src="./img/2.webp" alt="德甲冠军">
+          <div class="history-year">2025/26 · 德甲</div>
+          <div class="history-winner">🇩🇪</div>
+          <div class="history-host">拜仁慕尼黑</div>
+          <div class="history-name">南部之星回归</div>
+        </div>
+        <div class="history-card">
+          <img class="history-img" src="./img/4.webp" alt="意甲冠军">
+          <div class="history-year">2025/26 · 意甲</div>
+          <div class="history-winner">🇮🇹</div>
+          <div class="history-host">国际米兰</div>
+          <div class="history-name">蓝黑军团复兴</div>
+        </div>
+        <div class="history-card">
+          <img class="history-img" src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&q=80" alt="法甲冠军">
+          <div class="history-year">2025/26 · 法甲</div>
+          <div class="history-winner">🇫🇷</div>
+          <div class="history-host">巴黎圣日耳曼</div>
+          <div class="history-name">法甲霸主卫冕</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PC豪门球队 -->
+<section class="team-section" id="teams">
+  <div class="pc-section">
+    <h2 class="pc-section-title">五大联赛豪门</h2>
+    <p class="pc-section-sub">2026/27赛季争冠热门，星光熠熠的顶级俱乐部</p>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="team-name">曼城</div><div class="team-league">英超</div></div>
+      <div class="team-card"><div class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="team-name">阿森纳</div><div class="team-league">英超</div></div>
+      <div class="team-card"><div class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="team-name">利物浦</div><div class="team-league">英超</div></div>
+      <div class="team-card"><div class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="team-name">曼联</div><div class="team-league">英超</div></div>
+      <div class="team-card"><div class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="team-name">切尔西</div><div class="team-league">英超</div></div>
+      <div class="team-card"><div class="team-flag">🇪🇸</div><div class="team-name">皇家马德里</div><div class="team-league">西甲</div></div>
+      <div class="team-card"><div class="team-flag">🇪🇸</div><div class="team-name">巴塞罗那</div><div class="team-league">西甲</div></div>
+      <div class="team-card"><div class="team-flag">🇪🇸</div><div class="team-name">马德里竞技</div><div class="team-league">西甲</div></div>
+      <div class="team-card"><div class="team-flag">🇩🇪</div><div class="team-name">拜仁慕尼黑</div><div class="team-league">德甲</div></div>
+      <div class="team-card"><div class="team-flag">🇩🇪</div><div class="team-name">勒沃库森</div><div class="team-league">德甲</div></div>
+      <div class="team-card"><div class="team-flag">🇩🇪</div><div class="team-name">多特蒙德</div><div class="team-league">德甲</div></div>
+      <div class="team-card"><div class="team-flag">🇮🇹</div><div class="team-name">国际米兰</div><div class="team-league">意甲</div></div>
+      <div class="team-card"><div class="team-flag">🇮🇹</div><div class="team-name">AC米兰</div><div class="team-league">意甲</div></div>
+      <div class="team-card"><div class="team-flag">🇮🇹</div><div class="team-name">尤文图斯</div><div class="team-league">意甲</div></div>
+      <div class="team-card"><div class="team-flag">🇮🇹</div><div class="team-name">那不勒斯</div><div class="team-league">意甲</div></div>
+      <div class="team-card"><div class="team-flag">🇫🇷</div><div class="team-name">巴黎圣日耳曼</div><div class="team-league">法甲</div></div>
+      <div class="team-card"><div class="team-flag">🇫🇷</div><div class="team-name">马赛</div><div class="team-league">法甲</div></div>
+      <div class="team-card"><div class="team-flag">🇫🇷</div><div class="team-name">摩纳哥</div><div class="team-league">法甲</div></div>
+      <div class="team-card"><div class="team-flag">🇫🇷</div><div class="team-name">里昂</div><div class="team-league">法甲</div></div>
+      <div class="team-card"><div class="team-flag">🇫🇷</div><div class="team-name">里尔</div><div class="team-league">法甲</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PC赛程 -->
+
+
+<!-- 三条大横幅 -->
+
+
+<!-- 赛程下方联系方式 -->
+
+
+<!-- PC精彩瞬间 -->
+<section class="pc-section" id="gallery">
+  <h2 class="pc-section-title">五大联赛精彩瞬间</h2>
+  <p class="pc-section-sub">绿茵场上的永恒记忆，每一个进球都值得被铭记</p>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img class="g-img" src="./img/1.webp" alt="英超争冠">
+      <div class="gallery-overlay"><h4>英超 · 曼城绝杀</h4><p>伊蒂哈德球场，补时阶段一剑封喉</p></div>
+    </div>
+    <div class="gallery-item">
+      <img class="g-img" src="./img/3.webp" alt="西甲国家德比">
+      <div class="gallery-overlay"><h4>西甲 · 国家德比</h4><p>伯纳乌之夜，皇马巴萨巅峰对决</p></div>
+    </div>
+    <div class="gallery-item">
+      <img class="g-img" src="./img/2.webp" alt="德甲经典">
+      <div class="gallery-overlay"><h4>德甲 · 拜仁攻城拔寨</h4><p>安联球场，南部之星火力全开</p></div>
+    </div>
+    <div class="gallery-item">
+      <img class="g-img" src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800&q=80" alt="意甲欧战">
+      <div class="gallery-overlay"><h4>意甲 · 米兰德比</h4><p>圣西罗球场，红黑与蓝黑的宿命对决</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PC射手榜 -->
+<section id="rank">
+  <div class="pc-section">
+    <h2 class="pc-section-title">2026/27赛季射手榜 TOP10</h2>
+    <p class="pc-section-sub">五大联赛进球最多的顶级前锋</p>
+    <div style="background:var(--white);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);">
+      <table class="rank-table">
+        <tr><th>排名</th><th>球员</th><th>球队</th><th>进球</th><th>联赛</th></tr>
+        <tr><td><div class="rank-num gold">1</div></td><td><strong>埃尔林·哈兰德</strong></td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 曼城</td><td><strong style="color:var(--green);">28</strong></td><td>英超</td></tr>
+        <tr><td><div class="rank-num silver">2</div></td><td><strong>基利安·姆巴佩</strong></td><td>🇪🇸 皇家马德里</td><td><strong style="color:var(--green);">26</strong></td><td>西甲</td></tr>
+        <tr><td><div class="rank-num bronze">3</div></td><td><strong>哈里·凯恩</strong></td><td>🇩🇪 拜仁慕尼黑</td><td><strong style="color:var(--green);">25</strong></td><td>德甲</td></tr>
+        <tr><td><div class="rank-num normal">4</div></td><td><strong>劳塔罗·马丁内斯</strong></td><td>🇮🇹 国际米兰</td><td><strong>22</strong></td><td>意甲</td></tr>
+        <tr><td><div class="rank-num normal">5</div></td><td><strong>奥斯曼·登贝莱</strong></td><td>🇫🇷 巴黎圣日耳曼</td><td><strong>20</strong></td><td>法甲</td></tr>
+        <tr><td><div class="rank-num normal">6</div></td><td><strong>穆罕默德·萨拉赫</strong></td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 利物浦</td><td><strong>19</strong></td><td>英超</td></tr>
+        <tr><td><div class="rank-num normal">7</div></td><td><strong>罗伯特·莱万多夫斯基</strong></td><td>🇪🇸 巴塞罗那</td><td><strong>18</strong></td><td>西甲</td></tr>
+        <tr><td><div class="rank-num normal">8</div></td><td><strong>弗洛里安·维尔茨</strong></td><td>🇩🇪 勒沃库森</td><td><strong>17</strong></td><td>德甲</td></tr>
+        <tr><td><div class="rank-num normal">9</div></td><td><strong>杜尚·弗拉霍维奇</strong></td><td>🇮🇹 尤文图斯</td><td><strong>16</strong></td><td>意甲</td></tr>
+        <tr><td><div class="rank-num normal">10</div></td><td><strong>乔纳森·戴维</strong></td><td>🇫🇷 里尔</td><td><strong>15</strong></td><td>法甲</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 右侧漂浮按钮 -->
+
+<!-- PC页脚 -->
+<footer class="pc-footer">
+  <div class="pc-footer-inner">
+    <div>
+      <h4>⚽ 2026/27 五大联赛</h4>
+      <p>英超 · 西甲 · 德甲 · 意甲 · 法甲<br>欧洲顶级足球盛宴，实时数据同步</p>
+    </div>
+    <div>
+      <h4>快速导航</h4>
+      <p><a href="#history">历届冠军</a><br><a href="#teams">豪门球队</a><br><a href="#schedule">赛程表</a><br><a href="#rank">射手榜</a></p>
+    </div>
+    <div>
+      <h4>关于</h4>
+      <p><a href="#">赛事规则</a><br><a href="#">球场介绍</a><br><a href="#">积分规则</a><br><a href="#">官方商城</a></p>
+    </div>
+    <div>
+      <h4>关注我们</h4>
+      <p>Facebook · Twitter<br>Instagram · YouTube<br>微博 · 抖音</p>
+    </div>
+    <div>
+      <h4>联系客服</h4>
+      <p><a href="qywx_temp.html" style="display:inline-block;background:var(--gold);color:var(--green-dark);padding:8px 16px;border-radius:6px;font-weight:700;margin-top:4px;">企业微信</a></p>
+    </div>
+  </div>
+  <div class="pc-footer-bottom">© 2026/27 五大联赛 · 本页面为模拟展示，非官方网站</div>
+</footer>
+
+<script>
+// 弹窗
+function openModal() {
+  document.getElementById('modal').classList.add('active');
+}
+function closeModal(e) {
+  if (!e || e.target.id === 'modal') document.getElementById('modal').classList.remove('active');
+}
+// 公告弹窗【每次刷新页面就弹出，不再判断每日一次】
+function openNotice() {
+  document.getElementById('noticeModal').classList.add('active');
+}
+function closeNotice() {
+  document.getElementById('noticeModal').classList.remove('active');
+}
+function checkDailyNotice() {
+  // 去掉localStorage日期判断，页面刷新直接延时弹出
+  setTimeout(openNotice, 800);
+}
+window.addEventListener('load', checkDailyNotice);
+// 漂浮按钮弹窗
+var _floatLink = '';
+function openFloatNotice(title, iconImg, value, link) {
+  document.getElementById('floatTitle').textContent = title;
+  document.getElementById('floatSub').textContent = '点击卡片或下方按钮进行操作';
+  document.getElementById('floatIconImg').src = iconImg;
+  document.getElementById('floatLabel').textContent = title;
+  document.getElementById('floatValue').textContent = value;
+  _floatLink = link;
+  document.getElementById('floatLink').href = link;
+  document.getElementById('floatModal').classList.add('active');
+}
+function closeFloatNotice() {
+  document.getElementById('floatModal').classList.remove('active');
+}
+function floatGo() {
+  if (_floatLink) window.open(_floatLink, '_blank');
+}
+// 倒计时（2026/27赛季英超揭幕战 8月15日）
+function updateCountdown() {
+  const target = new Date('2027-06-01T03:00:00').getTime();
+  const now = new Date().getTime();
+  const diff = target - now;
+  if (diff > 0) {
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const s = Math.floor((diff % (1000*60)) / 1000);
+    const els = { 'cd-d': d, 'cd-h': h, 'cd-m': m, 'cd-s': s };
+    for (let id in els) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = String(els[id]).padStart(2, '0');
+    }
+  }
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+// 赛程数据（2026/27赛季第1轮焦点战）
+const scheduleData = {
+  '8月15日': [
+    { time:'03:00', t1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 曼联', t2:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 富勒姆', stage:'英超第1轮 · 老特拉福德' },
+    { time:'22:00', t1:'🇩🇪 门兴', t2:'🇩🇪 勒沃库森', stage:'德甲第1轮 · 普鲁士公园' },
+  ],
+  '8月16日': [
+    { time:'00:30', t1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 阿森纳', t2:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 狼队', stage:'英超第1轮 · 酋长球场' },
+    { time:'02:45', t1:'🇮🇹 国米', t2:'🇮🇹 热那亚', stage:'意甲第1轮 · 梅阿查' },
+    { time:'03:00', t1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 利物浦', t2:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 伊普斯维奇', stage:'英超第1轮 · 安菲尔德' },
+  ],
+  '8月17日': [
+    { time:'00:30', t1:'🇫🇷 勒阿弗尔', t2:'🇫🇷 巴黎圣日耳曼', stage:'法甲第1轮 · 奥西恩体育场' },
+    { time:'01:00', t1:'🇪🇸 毕尔巴鄂', t2:'🇪🇸 赫塔菲', stage:'西甲第1轮 · 圣马梅斯' },
+    { time:'03:00', t1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 切尔西', t2:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 曼城', stage:'英超第1轮 · 斯坦福桥' },
+  ],
+  '8月18日': [
+    { time:'01:00', t1:'🇪🇸 皇家马德里', t2:'🇪🇸 瓦伦西亚', stage:'西甲第1轮 · 伯纳乌' },
+    { time:'03:00', t1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 纽卡斯尔', t2:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 热刺', stage:'英超第1轮 · 圣詹姆斯公园' },
+  ],
+  '8月19日': [
+    { time:'03:00', t1:'🇩🇪 拜仁慕尼黑', t2:'🇩🇪 沃尔夫斯堡', stage:'德甲第1轮 · 安联球场' },
+    { time:'03:00', t1:'🇮🇹 AC米兰', t2:'🇮🇹 都灵', stage:'意甲第1轮 · 圣西罗' },
+  ],
+  '8月22日': [
+    { time:'03:00', t1:'🇪🇸 巴塞罗那', t2:'🇪🇸 巴列卡诺', stage:'西甲第1轮 · 奥林匹克球场' },
+    { time:'03:00', t1:'🇫🇷 马赛', t2:'🇫🇷 尼斯', stage:'法甲第2轮 · 韦洛德罗姆' },
+  ],
+  '8月23日': [
+    { time:'22:00', t1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 曼城', t2:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 伊普斯维奇', stage:'英超第2轮 · 伊蒂哈德' },
+    { time:'22:00', t1:'🇩🇪 多特蒙德', t2:'🇩🇪 法兰克福', stage:'德甲第2轮 · 伊杜纳信号公园' },
+  ],
+};
+let currentDate = '8月15日';
+function renderTabs() {
+  const tabsEl = document.getElementById('scheduleTabs');
+  const dates = Object.keys(scheduleData);
+  tabsEl.innerHTML = dates.map(d => `<button class="s-tab ${d === currentDate ? 'active' : ''}" data-date="${d}">${d}</button>`).join('');
+  tabsEl.querySelectorAll('.s-tab').forEach(btn => {
+    btn.addEventListener('click', function() {
+      currentDate = this.dataset.date;
+      renderTabs();
+      renderList();
+    });
+  });
+}
+function renderList() {
+  const listEl = document.getElementById('scheduleList');
+  const matches = scheduleData[currentDate] || [];
+  listEl.innerHTML = matches.map(m => `
+    <div class="s-item">
+      <div class="s-time">${m.time}</div>
+      <div class="s-match">
+        <div class="s-team">${m.t1}</div>
+        <span class="s-vs">VS</span>
+        <div class="s-team">${m.t2}</div>
+      </div>
+      <div class="s-stage">${m.stage}</div>
+    </div>
+  `).join('');
+}
+renderTabs();
+renderList();
+</script>
+
+<!-- 弹窗 -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <h3>🎫皇冠盘口</h3>
+    <p>会员/代理线路如下</p>
+    <div class="modal-btns">
+      <a href="https://hga030.com" target="_blank">会员盘口线路一</a>
+      <a href="https://ag.hga027.com/" target="_blank">代理盘口线路一</a>
+      <a href="https://hga027.com/" target="_blank">会员盘口线路二</a>
+      <a href="https://ag.hga030.com" target="_blank">代理盘口线路二</a>
+      <a href="https://hga038.com/" target="_blank">会员盘口线路三</a>
+      <a href="https://ag.hga039.com/" target="_blank">代理盘口线路三</a>
+      <a href="https://hga038.com/" target="_blank">会员盘口线路四</a>
+      <a href="https://ag.hga050.com/" target="_blank">代理盘口线路四</a>
+      <a href="https://hga050.com/" target="_blank">会员盘口线路五</a>
+      <a href="https://ag.mos011.com/" target="_blank">代理盘口线路五</a>
+      <a href="https://mos011.com/" target="_blank">会员盘口线路六</a>
+      <a href="https://ag.mos022.com/" target="_blank">代理盘口线路六</a>
+      <a href="https://mos022.com/" target="_blank">会员盘口线路七</a>
+      <a href="https://ag.mos055.com/" target="_blank">代理盘口线路七</a>
+      <a href="https://mos100.com/" target="_blank">会员盘口线路八</a>
+      <a href="https://ag.mos100.com/" target="_blank">代理盘口线路八</a>
+      
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕ 关闭</button>
+  </div>
+</div>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a85b80027f5991d51f60ad3/1k0d5dh48';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</body>
+</html>
